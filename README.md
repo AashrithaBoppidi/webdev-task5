@@ -1,1 +1,1 @@
-# webdev-task5
+Completed a comprehensive vanilla JS e-commerce capstone (ShopVerse) at ApexPlanet, featuring a robust cart, wishlist, and optimized performance. Delivered a fully responsive, cross-browser compatible application with smooth animations and enhanced loading speeds.
