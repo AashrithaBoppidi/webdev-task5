@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ShopVerse — A modern e-commerce experience">
+<title>ShopVerse — Modern E-Commerce</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="header-inner">
+    <a href="#" class="logo">Shop<span>Verse</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#hero">Home</a>
+      <a href="#products">Shop</a>
+      <a href="#features">Features</a>
+      <a href="#newsletter">Newsletter</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="searchToggle" aria-label="Search">🔍</button>
+      <button class="icon-btn cart-icon" id="cartToggle" aria-label="Cart">
+        🛒 <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="search-bar-wrap" id="searchBarWrap">
+    <input type="text" id="globalSearch" placeholder="Search products...">
+    <button onclick="document.getElementById('searchBarWrap').classList.remove('open')">✕</button>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#hero" onclick="closeMobileNav()">Home</a>
+  <a href="#products" onclick="closeMobileNav()">Shop</a>
+  <a href="#features" onclick="closeMobileNav()">Features</a>
+  <a href="#newsletter" onclick="closeMobileNav()">Newsletter</a>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>Your Cart <span id="cartItemCount">(0)</span></h3>
+    <button class="close-cart" id="closeCart">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <span>🛒</span>
+      <p>Your cart is empty</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">$0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Checkout →</button>
+    <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+  </div>
+</aside>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <p class="hero-tag">New Collection 2026</p>
+    <h1>Discover Products<br><em>You'll Love</em></h1>
+    <p class="hero-sub">Curated selection of premium electronics, fashion, home goods and more — all in one place.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn btn-primary">Shop Now →</a>
+      <a href="#features" class="btn btn-ghost">Learn More</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><strong>500+</strong><span>Products</span></div>
+      <div class="hstat"><strong>50k+</strong><span>Customers</span></div>
+      <div class="hstat"><strong>4.9★</strong><span>Rating</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hc-emoji">🎧</div>
+      <div class="hc-info">
+        <p>Wireless Headphones</p>
+        <strong>$149.00</strong>
+      </div>
+      <button class="hc-btn" onclick="scrollToProducts()">Add to Cart</button>
+    </div>
+    <div class="hero-card hc2">
+      <div class="hc-emoji">⌚</div>
+      <div class="hc-info">
+        <p>Smart Watch</p>
+        <strong>$299.00</strong>
+      </div>
+      <button class="hc-btn" onclick="scrollToProducts()">Add to Cart</button>
+    </div>
+    <div class="hero-blob"></div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-header">
+    <p class="sec-label">Browse by</p>
+    <h2>Categories</h2>
+  </div>
+  <div class="cats-grid">
+    <button class="cat-card active" data-cat="all">
+      <span>🛍️</span><p>All</p>
+    </button>
+    <button class="cat-card" data-cat="Electronics">
+      <span>💻</span><p>Electronics</p>
+    </button>
+    <button class="cat-card" data-cat="Wearables">
+      <span>⌚</span><p>Wearables</p>
+    </button>
+    <button class="cat-card" data-cat="Home">
+      <span>🏠</span><p>Home</p>
+    </button>
+    <button class="cat-card" data-cat="Sports">
+      <span>🏋️</span><p>Sports</p>
+    </button>
+    <button class="cat-card" data-cat="Books">
+      <span>📚</span><p>Books</p>
+    </button>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header">
+    <p class="sec-label">Our Store</p>
+    <h2>Featured Products</h2>
+  </div>
+  <div class="products-toolbar">
+    <p class="result-info" id="resultInfo"></p>
+    <div class="toolbar-right">
+      <select id="sortSelect">
+        <option value="default">Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="rating-desc">Top Rated</option>
+        <option value="name-asc">Name: A–Z</option>
+      </select>
+      <div class="view-toggle">
+        <button class="vbtn active" id="gridViewBtn">⊞</button>
+        <button class="vbtn" id="listViewBtn">☰</button>
+      </div>
+    </div>
+  </div>
+  <div id="productsGrid" class="products-grid"></div>
+  <div class="load-more-wrap">
+    <button class="load-more-btn" id="loadMoreBtn">Load More Products</button>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-header">
+    <p class="sec-label">Why ShopVerse</p>
+    <h2>Built for You</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card fade-in">
+      <div class="feat-icon">🚚</div>
+      <h3>Free Shipping</h3>
+      <p>Free delivery on all orders above $50. Fast and reliable shipping worldwide.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feat-icon">🔒</div>
+      <h3>Secure Payments</h3>
+      <p>Your payment information is always protected with 256-bit SSL encryption.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feat-icon">↩️</div>
+      <h3>Easy Returns</h3>
+      <p>Not satisfied? Return any product within 30 days for a full refund, no questions asked.</p>
+    </div>
+    <div class="feature-card fade-in">
+      <div class="feat-icon">💬</div>
+      <h3>24/7 Support</h3>
+      <p>Our customer support team is always available to help you with any queries.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-header">
+    <p class="sec-label">Reviews</p>
+    <h2>What Customers Say</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-in">
+      <div class="testi-stars">★★★★★</div>
+      <p>"Absolutely love the products. Fast delivery and great quality. Will definitely order again!"</p>
+      <div class="testi-author"><div class="testi-avatar">SR</div><div><strong>Sneha R.</strong><span>Verified Buyer</span></div></div>
+    </div>
+    <div class="testi-card fade-in">
+      <div class="testi-stars">★★★★★</div>
+      <p>"The website is so easy to use and the filters make finding what I need super quick."</p>
+      <div class="testi-author"><div class="testi-avatar">AK</div><div><strong>Arjun K.</strong><span>Verified Buyer</span></div></div>
+    </div>
+    <div class="testi-card fade-in">
+      <div class="testi-stars">★★★★☆</div>
+      <p>"Great selection of products at competitive prices. The smart watch I bought is fantastic!"</p>
+      <div class="testi-author"><div class="testi-avatar">PM</div><div><strong>Priya M.</strong><span>Verified Buyer</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="newsletter-inner">
+    <p class="sec-label">Stay Updated</p>
+    <h2>Get Exclusive Deals</h2>
+    <p class="nl-sub">Subscribe to our newsletter and get 10% off your first order plus early access to new arrivals.</p>
+    <div class="nl-form">
+      <input type="email" id="nlEmail" placeholder="Enter your email address">
+      <button id="nlBtn" onclick="subscribeNewsletter()">Subscribe →</button>
+    </div>
+    <p class="nl-success" id="nlSuccess">🎉 You're subscribed! Check your inbox for your 10% off code.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">Shop<span>Verse</span></div>
+      <p>Your one-stop destination for premium products at great prices.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <a href="#products">All Products</a>
+      <a href="#categories">Categories</a>
+      <a href="#features">Features</a>
+    </div>
+    <div class="footer-links">
+      <h4>Support</h4>
+      <a href="#">FAQ</a>
+      <a href="#">Returns</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="footer-links">
+      <h4>Follow Us</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Twitter</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 ShopVerse. Built with HTML, CSS & JavaScript.</p>
+    <p>Optimized · Responsive · Cross-Browser Compatible</p>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
